@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#10090d">
+  <meta name="description" content="A little garden of ASCII lilies, made for Priya.">
+  <title>A little garden for Priya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: dark; --ink: #fff8f5; --muted: #cdb8c0; --rose: #f0a4b8; --panel: rgba(22, 13, 19, .77); }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 100%; min-height: 100%; background: #10090d; color: var(--ink); }
+    body { min-height: 100svh; overflow: hidden; font-family: "DM Sans", sans-serif; }
+    body::before { content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 54%, rgba(90, 34, 57, .25), transparent 56%), linear-gradient(180deg, #10090d 0%, #160b11 56%, #0d090c 100%); }
+    #screen { position: fixed; inset: 0; z-index: 1; display: block; width: 100vw; height: 100svh; cursor: default; background: linear-gradient(180deg, rgba(16, 9, 13, .26), rgba(16, 9, 13, .58)), url("assets/priya-together.jpeg") center 44% / cover no-repeat; }
+    .intro { position: fixed; inset: 0; z-index: 5; display: grid; place-items: center; padding: max(24px, env(safe-area-inset-top)) 24px max(24px, env(safe-area-inset-bottom)); background: rgba(16, 9, 13, .25); overflow: hidden; transition: opacity .8s ease, visibility .8s ease; }
+    .intro::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(16, 9, 13, .34), rgba(16, 9, 13, .62)), url("assets/priya-portrait.jpeg") center 43% / cover no-repeat; transform: scale(1.02); }
+    .intro.is-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .intro-card { position: relative; z-index: 1; width: min(100%, 440px); padding: 28px 22px; border: 1px solid rgba(255, 225, 234, .14); border-radius: 28px; background: rgba(16, 9, 13, .44); box-shadow: 0 20px 70px rgba(0,0,0,.24); backdrop-filter: blur(7px); text-align: center; animation: arrive 1s both; }
+    .eyebrow { color: #e4aabe; text-transform: uppercase; letter-spacing: .2em; font-size: .68rem; font-weight: 700; }
+    h1 { font: 500 clamp(2.65rem, 12vw, 4rem)/1.05 "Playfair Display", Georgia, serif; letter-spacing: -.045em; }
+    .intro h1 { margin: 18px 0 14px; }
+    .intro h1 em { color: var(--rose); font-weight: 500; }
+    .intro-quote { max-width: 340px; margin: 0 auto 30px; color: #e2d0d5; font: italic 500 1.06rem/1.7 "Playfair Display", Georgia, serif; }
+    .heart-mark { display: block; margin: 0 auto 17px; color: #f5a5b9; font-size: 1.5rem; animation: heartbeat 2s ease-in-out infinite; }
+    button { color: inherit; font: inherit; }
+    .primary-button { min-height: 54px; padding: 0 25px; border: 1px solid rgba(255, 222, 231, .3); border-radius: 999px; background: linear-gradient(135deg, #e8a0b4, #bd6d8c); color: #29131e; font-weight: 700; box-shadow: 0 10px 35px rgba(214, 109, 145, .22); cursor: pointer; transition: transform .2s ease, box-shadow .2s ease; }
+    .primary-button:active { transform: scale(.97); }
+    .primary-button:hover { box-shadow: 0 12px 42px rgba(214, 109, 145, .36); }
+    .experience { position: fixed; inset: 0; z-index: 2; display: flex; flex-direction: column; justify-content: space-between; padding: max(20px, env(safe-area-inset-top)) 18px max(16px, env(safe-area-inset-bottom)); opacity: 0; visibility: hidden; transition: opacity .8s ease .2s, visibility .8s ease .2s; pointer-events: none; }
+    .experience.is-visible { opacity: 1; visibility: visible; }
+    .experience > * { pointer-events: auto; }
+    .topline { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .wordmark { color: #f4dfe5; font: 500 1rem "Playfair Display", Georgia, serif; }
+    .wordmark small { display: block; margin-top: 4px; color: #d3bfc7; font: 500 .69rem "DM Sans", sans-serif; letter-spacing: .08em; }
+    .status { display: inline-flex; align-items: center; gap: 7px; padding: 8px 11px; border: 1px solid rgba(255,255,255,.1); border-radius: 999px; background: rgba(21,12,18,.62); color: #e2cbd4; font-size: .69rem; }
+    .status::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #efa8bc; box-shadow: 0 0 10px #efa8bc; }
+    .control-dock { width: min(100%, 510px); align-self: center; margin: 0 auto; padding: 14px; border: 1px solid rgba(255, 225, 234, .12); border-radius: 22px; background: var(--panel); box-shadow: 0 18px 60px rgba(0,0,0,.32); backdrop-filter: blur(16px); }
+    .control-heading { display: flex; justify-content: space-between; align-items: center; margin: 0 2px 11px; color: #e8d7dc; font-size: .73rem; }
+    .palette-row, .action-row { display: flex; gap: 8px; }
+    .palette-button { display: flex; flex: 1; align-items: center; justify-content: center; gap: 7px; min-height: 40px; padding: 0 8px; border: 1px solid rgba(255,255,255,.1); border-radius: 13px; background: rgba(255,255,255,.035); color: #d9cbd0; font-size: .72rem; cursor: pointer; }
+    .palette-button[aria-pressed="true"] { border-color: rgba(243, 164, 187, .6); background: rgba(225, 139, 165, .14); color: #fff2f5; }
+    .swatch { width: 10px; height: 10px; border-radius: 50%; box-shadow: 0 0 10px currentColor; }
+    .swatch.pink { color: #f39ab2; background: #f39ab2; }
+    .swatch.white { color: #fff5e9; background: #fff5e9; }
+    .swatch.garden { color: #e9c63c; background: linear-gradient(135deg, #e3233a, #d24aa9, #e9c63c); }
+    .action-row { margin-top: 9px; }
+    .action-button { flex: 1; min-height: 43px; border: 1px solid rgba(255,255,255,.12); border-radius: 13px; background: rgba(255,255,255,.065); color: #f4e9ec; font-size: .76rem; font-weight: 600; cursor: pointer; }
+    .action-button:active, .palette-button:active { transform: scale(.98); }
+    @keyframes arrive { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes heartbeat { 50% { transform: scale(1.12); } }
+    @media (min-width: 700px) { .experience { padding-left: 34px; padding-right: 34px; } .control-dock { padding: 16px 18px; } }
+    @media (max-height: 650px) { .intro-quote { margin-bottom: 18px; } .heart-mark { margin-bottom: 8px; } .control-dock { padding: 10px; } .control-heading { margin-bottom: 7px; } .palette-button { min-height: 36px; } .action-button { min-height: 38px; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <canvas id="screen" aria-label="ASCII lilies slowly growing and blooming"></canvas>
+
+  <section class="intro" id="intro" aria-labelledby="intro-title">
+    <div class="intro-card">
+      <span class="heart-mark" aria-hidden="true">♡</span>
+      <div class="eyebrow">A little something for you</div>
+      <h1 id="intro-title">For you,<br><em>Priya</em> ♡</h1>
+      <p class="intro-quote">Couldn't give you flowers then, so I made these bloom for you. Until I can bring you real ones. ❤️</p>
+      <button class="primary-button" id="open-flowers">Open your flowers&nbsp; <span aria-hidden="true">→</span></button>
+    </div>
+  </section>
+
+  <main class="experience" id="experience" aria-label="Your flower garden">
+    <header class="topline">
+      <div class="wordmark">Priya's little garden<small>made with love, just for you</small></div>
+      <div class="status" id="status" aria-live="polite">Growing for you</div>
+    </header>
+    <section class="control-dock" aria-label="Flower controls">
+      <div class="control-heading"><span>Make it yours</span><span>Tap to choose</span></div>
+      <div class="palette-row" role="group" aria-label="Flower colours">
+        <button class="palette-button" data-palette="0" aria-pressed="true"><span class="swatch pink"></span> Blush</button>
+        <button class="palette-button" data-palette="1" aria-pressed="false"><span class="swatch white"></span> Moonlight</button>
+        <button class="palette-button" data-palette="2" aria-pressed="false"><span class="swatch garden"></span> Garden</button>
+      </div>
+      <div class="action-row">
+        <button class="action-button" id="pause-button">Ⅱ&nbsp; Pause</button>
+        <button class="action-button" id="replay-button">↻&nbsp; Replay</button>
+        <button class="action-button" id="restart-button">↺&nbsp; Start over</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="bouquet.js"></script>
+</body>
+</html>
