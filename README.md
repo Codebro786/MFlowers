@@ -1,21 +1,15 @@
-# A little garden for Priya
+# A little garden for Mummy
 
-A personal, phone-friendly ASCII lily experience. Priya opens the page on your note, taps **Open your flowers**, and watches the bouquet grow and bloom. She can pause, replay, start over, or choose blush, moonlight, and garden colours.
+A phone-friendly ASCII lily garden made for Mummy. Tap **Open your flowers** to watch the bouquet grow and bloom. She can choose blush, moonlight, or garden colours, pause, replay, and start over.
 
-The solo portrait is used behind the opening note, and the photo together is used behind the flower animation. Both images are in `assets/`.
+The solo portrait appears behind the opening note; the photo of Mummy and Dad appears behind the flowers. Both are in `assets/`.
 
 ## Run it
 
-Open `index.html` in a browser, or serve this folder with any static web server. There are no build tools or dependencies.
+Open `index.html` in a browser, or serve this folder with a static web server. There are no build tools or dependencies.
 
-## Share it on WhatsApp
+## Publish with GitHub Pages
 
-Publish the three files (`index.html`, `bouquet.js`, and this README) to a public static host. For GitHub Pages, open the repository's **Settings → Pages**, select the `main` branch and `/ (root)` folder, then save. Once Pages finishes publishing, copy its public URL and send it to Priya with:
+Upload `index.html`, `bouquet.js`, and this README to the root of a public repository. In **Settings → Pages**, select **Deploy from a branch**, choose `main` and `/(root)`, then save. After the page is live, share its URL.
 
-> I made something for you ❤️
-
-The final **Send a little love** button also opens WhatsApp with the page URL and a message ready to send. A URL option such as `?p=1` starts with moonlight lilies; `?p=2` starts with garden colours.
-
-## The animation
-
-Stems rise, leaves unfurl, and buds swell and blush before the lilies open one by one. The ASCII scene keeps gently swaying after the bloom. The canvas animation is paused until she taps the opening button, so it begins on her cue.
+The bloom continues swaying after the flowers open. The animation starts when Mummy taps the opening button.
